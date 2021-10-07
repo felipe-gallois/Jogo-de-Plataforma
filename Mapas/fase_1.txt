@@ -1,0 +1,30 @@
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x                                          xxxxxxxxxxxxxxxxx
+x  T                                       xxxxxxxxxxxxxxxxx
+x  xxxx                 ! ! !              xxxxxxxxxxxxxxxxx
+x           FF   J                         xxxxxxxxxxxxxxxxx
+x        xxxxxxxxx              ! !  !     xxxxxxxxxxxxxxxxx
+x                                          xxxxxxxxxxxxxxxxx
+x       !                                  xxxxxxxxxxxxxxxxx
+x      xxx                                 xxxxxxxxxxxxxxxxx
+x                                          xxxxxxxxxxxxxxxxx
+x							   x
+x  xxxx    xxx                             @               x
+x                      #                                   x
+x               xxx                                        x
+x                                          xAAAAAx         x
+x              F                           xAAAAAx   FFF   x
+x          xxxxx                           xxxxxxxxxxxxx   x
+x                                          x               x
+x                                          x               x
+x       xxxx                               x               x
+x                                          x      FF    F @x
+x   !                                      x   	xxxxxxxxxxxx
+x   xxxxxx                                 x               x
+x                                          x               x
+x                        %    %    %     $ x               x
+x      xxxxxxx                             x  F    FF      x
+x                !  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
+x O             xx  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
+x   D               xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx    Px
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
