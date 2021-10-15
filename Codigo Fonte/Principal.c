@@ -30,7 +30,7 @@ int main()
 
     int *estado = (int*) malloc(sizeof(int));
 
-    estado = MENU;
+    *estado = MENU;
 
     /* LOOP PRINCIPAL */
 
