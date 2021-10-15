@@ -13,19 +13,47 @@
     E PROGRAMAÇÃO DO SEGUNDO SEMESTRE DE 2021.
 */
 
-//CABEÇALHO
+/* INCLUDES */
+#include <stdlib.h> //MALLOC
 
-//CONSTANTES
+/* ENUMS */
+enum estados {MENU, JOGO, RANKING}; //ENUMERA OS POSSÍVEIS ESTADOS DO PROGRAMA
 
-
+/* MAIN */
 int main()
 {
-    CarregaMenu(); //A FAZER
+    /* INÍCIO DO PROGRAMA */
 
-    while(!EncerraPrograma()) //A FAZER
+    int *encerrar = (int*) malloc(sizeof(int));
+
+    *encerrar = 0;
+
+    int *estado = (int*) malloc(sizeof(int));
+
+    estado = MENU;
+
+    /* LOOP PRINCIPAL */
+
+    while(!(*encerrar))
     {
-        LoopPrincipal(); //A FAZER
+        switch(*estado)
+        {
+            case MENU:
+                ExecutaMenu(); //TODO
+                break;
+            case JOGO:
+                ExecutaJogo(); //TODO
+                break;
+            case RANKING:
+                ExecutaRanking(); //TODO
+                break;
+        }
     }
+
+    /* FIM DO PROGRAMA */
+
+    free(encerrar);
+    free(estado);
 
     return 0;
 }
