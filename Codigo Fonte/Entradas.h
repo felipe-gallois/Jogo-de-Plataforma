@@ -16,6 +16,10 @@
 #ifndef ENTRADAS_H
 #define ENTRADAS_H
 
-//código
+/* ENUMS */
+enum teclas {INVALIDO, CIMA, BAIXO, DIREITA, ESQUERDA, ESC, S, N, SPCBR}; //ENUMERA AS POSSÍVEIS ENTRADAS DO USUÁRIO
+
+/* DECLARAÇÕES */
+int RecebeEntrada();
 
 #endif

@@ -16,6 +16,6 @@
 #ifndef NOVOJOGO_H
 #define NOVOJOGO_H
 
-//código
+int ExecutaJogo();
 
 #endif

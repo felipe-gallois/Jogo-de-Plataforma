@@ -14,46 +14,48 @@
 */
 
 /* INCLUDES */
-#include <stdlib.h> //MALLOC
+#include "Entradas.h"
+#include "Jogo.h"
 
 /* ENUMS */
 enum estados {MENU, JOGO, RANKING}; //ENUMERA OS POSSÍVEIS ESTADOS DO PROGRAMA
+
+/* DEFINES */
+#define ESTADOINI JOGO //DEFINE EM QUE ESTADO O PROGRAMA DEVE INICIAR
 
 /* MAIN */
 int main()
 {
     /* INÍCIO DO PROGRAMA */
 
-    int *encerrar = (int*) malloc(sizeof(int));
-
-    *encerrar = 0;
-
-    int *estado = (int*) malloc(sizeof(int));
-
-    *estado = MENU;
+    int encerrar = 0, estado = ESTADOINI;
 
     /* LOOP PRINCIPAL */
 
-    while(!(*encerrar))
+    while(!encerrar)
     {
-        switch(*estado)
+        switch(estado)
         {
             case MENU:
-                ExecutaMenu(); //TODO
+                //ExecutaMenu(); //TODO
                 break;
             case JOGO:
-                ExecutaJogo(); //TODO
+                int novo = 0;
+
+                do
+                {
+                    novo = ExecutaJogo(); //TODO
+                }
+                while (novo == 1);
+                
                 break;
             case RANKING:
-                ExecutaRanking(); //TODO
+                //ExecutaRanking(); //TODO
                 break;
         }
     }
 
     /* FIM DO PROGRAMA */
-
-    free(encerrar);
-    free(estado);
 
     return 0;
 }
