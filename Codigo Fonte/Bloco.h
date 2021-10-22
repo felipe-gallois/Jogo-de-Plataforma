@@ -16,6 +16,12 @@
 #ifndef BLOCO_H
 #define BLOCO_H
 
-//código
+#include "Constantes.h"
+
+/* DECLARAÇÕES */
+
+int TemBloco(int posx, int posy, char mapa[ALTMAX][LARGMAX]);
+
+void DesenhaBlocos(char mapa[ALTMAX][LARGMAX]);
 
 #endif

@@ -16,6 +16,6 @@
 #ifndef NOVOJOGO_H
 #define NOVOJOGO_H
 
-int ExecutaJogo();
+void ExecutaJogo(int* estado, int* encerrar);
 
 #endif

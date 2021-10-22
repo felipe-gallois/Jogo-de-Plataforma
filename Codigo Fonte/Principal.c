@@ -14,14 +14,12 @@
 */
 
 /* INCLUDES */
+#include <stdlib.h> //SYSTEM
+
+#include "conio2.h"
 #include "Entradas.h"
 #include "Jogo.h"
-
-/* ENUMS */
-enum estados {MENU, JOGO, RANKING}; //ENUMERA OS POSSÍVEIS ESTADOS DO PROGRAMA
-
-/* DEFINES */
-#define ESTADOINI JOGO //DEFINE EM QUE ESTADO O PROGRAMA DEVE INICIAR
+#include "Constantes.h"
 
 /* MAIN */
 int main()
@@ -37,19 +35,18 @@ int main()
         switch(estado)
         {
             case MENU:
+                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
+                system("cls");
                 //ExecutaMenu(); //TODO
                 break;
             case JOGO:
-                int novo = 0;
-
-                do
-                {
-                    novo = ExecutaJogo(); //TODO
-                }
-                while (novo == 1);
-                
+                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
+                system("cls");
+                ExecutaJogo(&estado, &encerrar);
                 break;
             case RANKING:
+                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
+                system("cls");
                 //ExecutaRanking(); //TODO
                 break;
         }
@@ -59,5 +56,3 @@ int main()
 
     return 0;
 }
-
-//TESTE

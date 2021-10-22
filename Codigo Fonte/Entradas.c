@@ -16,6 +16,7 @@
 //#include <ctype.h> //PARA TRABALHAR COM CARACTERES FORA DO PADRÃO ASCII
 #include "conio2.h" //_GETCH
 #include "Entradas.h"
+#include "Constantes.h"
 
 int RecebeEntrada()
 {
