@@ -17,10 +17,12 @@
 #include <stdio.h> //FILE
 #include <string.h> //STRCPY
 #include <stdlib.h> //MALLOC
+#include <windows.h>
 
 #include "Entradas.h"
 #include "Constantes.h"
 #include "Bloco.h"
+#include "Dave.h"
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
@@ -41,25 +43,40 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 }
 
-void DesenhaMapa(char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
+void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
-    /* ELEMENTOS PARA DESENHAR (ESTÁTICOS):
-       - PAREDES
-       - PORTA
-       - ENTRADA
-    */
+    /* BLOCOS */
 
     DesenhaBlocos(mapa);
+
+    /* DAVE */
+
+    DesenhaDave(dave, dave->posX, dave->posY);
 }
 
-void ProcessaEventos(int entrada) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
+    /* DAVE */
 
-}
-
-void AtualizaDesenho() //EXECUTADO A CADA TICK DO JOGO. ATUALIZA O DESENHO.
-{
-
+    switch(entrada)
+    {
+        case DIREITA:
+            if(!TemBloco(dave->posX + 1, dave->posY, mapa) &&
+               !TemBloco(dave->posX + 1, dave->posY - 1, mapa))
+            {
+                ApagaDave(dave);
+                DesenhaDave(dave, dave->posX + 1, dave->posY);
+            }
+            break;
+        case ESQUERDA:
+            if(!TemBloco(dave->posX - 1, dave->posY, mapa) &&
+               !TemBloco(dave->posX - 1, dave->posY - 1, mapa))
+            {
+                ApagaDave(dave);
+                DesenhaDave(dave, dave->posX - 1, dave->posY);
+            }
+            break;
+    }
 }
 
 void SalvaJogo()
@@ -75,9 +92,11 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
 
-    DesenhaMapa(mapa); //DESENHA OS ELEMENTOS NA TELA
+    Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
-    int entrada, contador_delay = 0;
+    DesenhaElementos(&dave, mapa); //DESENHA OS ELEMENTOS NA TELA
+
+    int entrada;
 
     int terminar = 0, novo = 0, salvar = 0; //VARIÁVEIS DE CONTROLE
 
@@ -111,23 +130,16 @@ void ExecutaJogo(int* estado, int* encerrar)
 
         /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
-        if(contador_delay >= DELAY)
-        {
-            contador_delay = 1;
-
-            //TODO
-            ProcessaEventos(entrada); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
-            //TODO
-            AtualizaDesenho(); //DESENHA OS ELEMENTOS ALTERADOS
-        }
-        else
-            contador_delay++;
+        //TODO
+        ProcessaEventos(entrada, mapa, &dave); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
         if(salvar)
         {
             SalvaJogo(); //TODO
             salvar = 0;
         }
+
+        Sleep(DELAY);
     }
 
     /* FIM DA FUNÇÃO */

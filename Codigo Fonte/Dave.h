@@ -16,6 +16,19 @@
 #ifndef DAVE_H
 #define DAVE_H
 
-//código
+#include "Constantes.h"
+
+typedef struct Dave
+{
+    int posX, posY;
+} Dave;
+
+int LocalizaDaveX(char mapa[ALTMAX][LARGMAX]);
+
+int LocalizaDaveY(char mapa[ALTMAX][LARGMAX]);
+
+void ApagaDave(Dave *dave);
+
+void DesenhaDave(Dave *dave, int posX, int posY);
 
 #endif

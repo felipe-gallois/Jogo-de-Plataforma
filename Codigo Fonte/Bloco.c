@@ -23,7 +23,7 @@
 int TemBloco(int posx, int posy, char mapa[ALTMAX][LARGMAX])
 {
     if(posx % 2 == 0) //BLOCOS OCUPAM DUAS POSIÇÕES
-        posx--; 
+        posx--;
 
     if(mapa[posy - 1][(posx - 1) / 2] == 'x')
         return 1;
