@@ -14,45 +14,52 @@
 */
 
 //#include <ctype.h> //PARA TRABALHAR COM CARACTERES FORA DO PADRÃO ASCII
+#include <windows.h>
+
 #include "conio2.h" //_GETCH
 #include "Entradas.h"
 #include "Constantes.h"
 
 int RecebeEntrada()
 {
-    int entrada = _getch();
-
-    switch(entrada)
+    if(_kbhit)
     {
-        case 224: //SETAS DO TECLADO
-            entrada = _getch();
+        int entrada = _getch();
 
-            switch(entrada)
-            {
-                case 72: //PARA CIMA
-                    return CIMA;
-                case 75: //PARA A ESQUERDA
-                    return ESQUERDA;
-                case 77: //PARA A DIREITA
-                    return DIREITA;
-                case 80: //PARA BAIXO
-                    return BAIXO;
-                default:
-                    return INVALIDO;
-            }
-        case 27: //ESC
-            return ESC;
-        case 83: //S MAIÚSCULO
-            return S;
-        case 115: //S MINÚSCULO
-            return S;
-        case 78: //N MAIÚSCULO
-            return N;
-        case 110: //N MINÚSCULO
-            return N;
-        case 32: //BARRA DE ESPAÇO
-            return SPCBR;
-        default:
-            return INVALIDO;
+        switch(entrada)
+        {
+            case 224: //SETAS DO TECLADO
+                entrada = _getch();
+
+                switch(entrada)
+                {
+                    case 72: //PARA CIMA
+                        return CIMA;
+                    case 75: //PARA A ESQUERDA
+                        return ESQUERDA;
+                    case 77: //PARA A DIREITA
+                        return DIREITA;
+                    case 80: //PARA BAIXO
+                        return BAIXO;
+                    default:
+                        return INVALIDO;
+                }
+            case 27: //ESC
+                return ESC;
+            case 83: //S MAIÚSCULO
+                return S;
+            case 115: //S MINÚSCULO
+                return S;
+            case 78: //N MAIÚSCULO
+                return N;
+            case 110: //N MINÚSCULO
+                return N;
+            case 32: //BARRA DE ESPAÇO
+                return SPCBR;
+            default:
+                return INVALIDO;
+        }
     }
+
+    return -1;
 }
