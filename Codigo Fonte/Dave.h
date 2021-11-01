@@ -21,14 +21,16 @@
 typedef struct Dave
 {
     int posX, posY;
+    int saltando; /* NÚMERO DE BLOCOS QUE DAVE PRECISA SALTAR */
+    int aceleracao; /* -1 PARA ESQUERDA, 0 PARA SEM ACELERAÇÃO, 1 PARA DIREITA */
 } Dave;
 
 int LocalizaDaveX(char mapa[ALTMAX][LARGMAX]);
 
 int LocalizaDaveY(char mapa[ALTMAX][LARGMAX]);
 
-void ApagaDave(Dave *dave);
-
 void DesenhaDave(Dave *dave, int posX, int posY);
+
+void movimenta_dave(int entrada, Dave *dave, char mapa[ALTMAX][LARGMAX]);
 
 #endif

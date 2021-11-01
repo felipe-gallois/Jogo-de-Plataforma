@@ -57,26 +57,8 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEME
 void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* DAVE */
-
-    switch(entrada)
-    {
-        case DIREITA:
-            if(!TemBloco(dave->posX + 1, dave->posY, mapa) &&
-               !TemBloco(dave->posX + 1, dave->posY - 1, mapa))
-            {
-                ApagaDave(dave);
-                DesenhaDave(dave, dave->posX + 1, dave->posY);
-            }
-            break;
-        case ESQUERDA:
-            if(!TemBloco(dave->posX - 1, dave->posY, mapa) &&
-               !TemBloco(dave->posX - 1, dave->posY - 1, mapa))
-            {
-                ApagaDave(dave);
-                DesenhaDave(dave, dave->posX - 1, dave->posY);
-            }
-            break;
-    }
+    movimenta_dave(entrada, dave, mapa);
+    
 }
 
 void SalvaJogo()

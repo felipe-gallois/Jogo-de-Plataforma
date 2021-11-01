@@ -22,7 +22,7 @@
 
 int RecebeEntrada()
 {
-    if(_kbhit)
+    if(_kbhit())
     {
         int entrada = _getch();
 
