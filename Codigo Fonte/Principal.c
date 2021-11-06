@@ -17,6 +17,8 @@
 #include <stdlib.h> //SYSTEM
 
 #include "conio2.h"
+
+#include "Menu.h"
 #include "Entradas.h"
 #include "Jogo.h"
 #include "Constantes.h"
@@ -37,7 +39,7 @@ int main()
             case MENU:
                 textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
                 system("cls");
-                //ExecutaMenu(); //TODO
+                ExecutaMenu(&estado, &encerrar);
                 break;
             case JOGO:
                 textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE

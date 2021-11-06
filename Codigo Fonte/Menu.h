@@ -16,6 +16,6 @@
 #ifndef MENU_H
 #define MENU_H
 
-//código
+void ExecutaMenu(int* estado, int* encerrar);
 
 #endif
