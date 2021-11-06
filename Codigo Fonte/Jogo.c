@@ -74,9 +74,17 @@ void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar
     
 }
 
-void SalvaJogo()
+void SalvaJogo(Dave *dave, placar_t *placar)
 {
+    FILE *arquivo;
+    arquivo = fopen(DIR_SAVE, "wb+");
 
+    if(arquivo != NULL) {
+        fwrite(dave, sizeof(Dave), 1, arquivo);
+        fwrite(placar, sizeof(placar_t), 1, arquivo);
+    }
+
+    fclose(arquivo);
 }
 
 void ExecutaJogo(int* estado, int* encerrar)
@@ -132,7 +140,7 @@ void ExecutaJogo(int* estado, int* encerrar)
 
         if(salvar)
         {
-            SalvaJogo(); //TODO
+            SalvaJogo(&dave, &placar); //TODO
             salvar = 0;
         }
 
