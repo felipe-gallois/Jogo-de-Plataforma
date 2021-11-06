@@ -17,10 +17,12 @@
 #include <stdio.h> //FILE
 #include <string.h> //STRCPY
 #include <stdlib.h> //MALLOC
+
 #include <windows.h>
 
 #include "Entradas.h"
 #include "Constantes.h"
+#include "Placar.h"
 #include "Bloco.h"
 #include "Dave.h"
 
@@ -43,8 +45,12 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 }
 
-void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
+void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
+    /* PLACAR */
+
+    desenha_placar(placar);
+
     /* BLOCOS */
 
     DesenhaBlocos(mapa);
@@ -54,9 +60,16 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEME
     DesenhaDave(dave, dave->posX, dave->posY);
 }
 
-void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
+    /* PLACAR */
+    
+    if(!(placar->atualizado)) {
+        atualiza_placar(placar);
+    }
+
     /* DAVE */
+
     movimenta_dave(entrada, dave, mapa);
     
 }
@@ -74,9 +87,11 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
 
+    placar_t placar = {0, 0, 0, 1, 5}; //CRIA O PLACAR
+
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
-    DesenhaElementos(&dave, mapa); //DESENHA OS ELEMENTOS NA TELA
+    DesenhaElementos(&dave, mapa, &placar); //DESENHA OS ELEMENTOS NA TELA
 
     int entrada;
 
@@ -113,7 +128,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
         //TODO
-        ProcessaEventos(entrada, mapa, &dave); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
+        ProcessaEventos(entrada, mapa, &dave, &placar); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
         if(salvar)
         {
