@@ -94,7 +94,7 @@ void ExecutaJogo(int* estado, int* encerrar)
                 terminar = 1;
                 novo = 0;
                 salvar = 0;
-                *encerrar = 1;
+                *estado = MENU;
                 break;
             case N:
                 terminar = 1;

@@ -56,6 +56,8 @@ int RecebeEntrada()
                 return N;
             case 32: //BARRA DE ESPAÇO
                 return SPCBR;
+            case 13:
+                return ENTER;
             default:
                 return INVALIDO;
         }
