@@ -16,6 +16,17 @@
 #ifndef PLACAR_H
 #define PLACAR_H
 
-//código
+typedef struct
+{
+    int atualizado;
+    int pontos;
+    int pontuacao_agregada;
+    int nivel;
+    int vidas;
+} placar_t;
+
+void desenha_placar(placar_t *placar);
+
+void atualiza_placar(placar_t *placar);
 
 #endif
