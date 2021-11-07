@@ -26,8 +26,34 @@
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
+    FILE *arquivo;
+    arquivo = fopen(diretorio, "r");
+
+    if(arquivo != NULL) {
+
+        char linha[LARGMAX + 2];
+
+        for(int y = 0; y < ALTMAX; y++) { //EXECUTA 24 VEZES (0 a 23)
+
+            fflush(arquivo);
+            fgets(linha, LARGMAX + 2, arquivo);
+
+            for(int x = 0; x < LARGMAX; x++) { //EXECUTA 60 VEZES (0 a 59)
+
+                if(linha[x] != '\n' && linha[x] != '\0') {
+                    saida[ALT_PLACAR + y][x] = linha[x];
+                } else {
+                    saida[ALT_PLACAR + y][x] = ' ';
+                }
+            }
+        }
+
+    }
+
+    fclose(arquivo);
+
     /* DEFINIÇÃO TEMPORÁRIA PARA FINS DE TESTE.
-       AGUARDAR AULA DE STREAMING DE ARQUIVOS PARA FAZER A VERDADEIRA DEFINIÇÃO DA FUNÇÃO */
+       AGUARDAR AULA DE STREAMING DE ARQUIVOS PARA FAZER A VERDADEIRA DEFINIÇÃO DA FUNÇÃO
     
     strcpy(saida[10], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     strcpy(saida[11], "x                                                          x");
@@ -41,6 +67,7 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     strcpy(saida[19], "x   O                   xxxxxxx                            x");
     strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx                    x");
     strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    */
 }
 
 void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
@@ -74,6 +101,22 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
 
+    /*
+    for(int i = 0; i < ALT_PLACAR; i++) {
+        printf("\n");
+    }
+
+    for(int y = 0; y < ALTMAX; y++) {
+        for(int x = 0; x < LARGMAX; x++) {
+            printf("%c", mapa[y][x]);
+        }
+    }
+    */
+   
+    system("pause");
+
+    
+    /*
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
     DesenhaElementos(&dave, mapa); //DESENHA OS ELEMENTOS NA TELA
@@ -86,6 +129,7 @@ void ExecutaJogo(int* estado, int* encerrar)
     {
         /* RECEBE ENTRADA - TEMPO INTEIRO */
 
+    /*
         entrada = RecebeEntrada();
 
         switch(entrada) //TRATA AS TECLAS ESPECIAIS
@@ -112,6 +156,7 @@ void ExecutaJogo(int* estado, int* encerrar)
 
         /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
+        /*
         //TODO
         ProcessaEventos(entrada, mapa, &dave); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
@@ -126,6 +171,8 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     /* FIM DA FUNÇÃO */
 
+    /*
     if(!novo)
         *estado = MENU; //SE NÃO FOR REINICIAR O JOGO, VOLTA PARA O MENU INICIAL
+    */
 }

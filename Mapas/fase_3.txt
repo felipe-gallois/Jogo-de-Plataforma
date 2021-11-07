@@ -1,23 +1,17 @@
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-x#    F                                                    x
 x                          !           !                   x
-x F                                                        x      
+x F                                                        x
 x   @    xxxxxxx  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx      x
 x      F xxxxxxx  x                      xxxxxxxxxxxx      x
 x        xxxxxxx  x   J   T              xxxxxxxxxxxx    F x
-xF   F   xxxxxxx% x  xxxxxxxxxxx         xxxxxxxxxxxx      x
-x        xxxxxxx  x  xxxxxxxxxxx xx      xxxxxxxxxxxx $    x
-x        xxxxxxxF x  xxxxxxxxxxx         xxxxxxxxxxxx      x
 x        xxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx F    x
 x   F    xxxxxxx  x  xxxxxxxxxxx   xx    xxxxxxxxxxxx      x
-x      FFxxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx      x
-x        xxxxxxx  x  xxxxxxxxxxx    ! xxxxxxxxxxxxxxx     Fx
+xF     FFxxxxxxxF x  xxxxxxxxxxx         xxxxxxxxxxxx      x
+x    F   xxxxxxx  x  xxxxxxxxxxx    ! xxxxxxxxxxxxxxx     Fx
 x       %xxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx      x
 x F      xxxxxxx  x  xxxxxxxxxxx    F    xxxxxxxxxxxx  @   x
 x        xxxxxxx  x  xxxxxxxxxxx    xxx !xxxxxxxxxxxx      x
-x      F xxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx   F  x
-x        xxxxxxx  x  xxxxxxxxxxx  xx     xxxxxxxxxxxx      x
-x        xxxxxxx %x  xxxxxxxxxxx         xxxxxxxxxxxxF     x
+x      F xxxxxxx %x  xxxxxxxxxxx  x      xxxxxxxxxxxx   F  x
 x   F    xxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx#     x
 x      F xxxxxxx Fx  xxxxxxxxxxxx        xxxxxxxxxxxx      x
 x!       xxxxxxx  x  xxxxxxxxxxx         xxxxxxxxxxxx    @ x
