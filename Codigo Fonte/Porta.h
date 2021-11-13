@@ -16,6 +16,19 @@
 #ifndef PORTA_H
 #define PORTA_H
 
-//código
+#include "Constantes.h"
+
+struct Porta
+{
+    int x;
+    int y;
+};
+
+
+int TemPorta(int posx, int posy, struct Porta *porta);
+
+void DesenhaPorta(char mapa[ALTMAX][LARGMAX], struct Porta *porta);
+
+void AtualizaPorta(struct Porta *porta);
 
 #endif

@@ -24,6 +24,7 @@
 #include "Constantes.h"
 #include "Placar.h"
 #include "Bloco.h"
+#include "Porta.h"
 #include "Dave.h"
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
@@ -41,11 +42,11 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     strcpy(saida[17], "x                                 xxxxxxx                  x");
     strcpy(saida[18], "x                                                          x");
     strcpy(saida[19], "x   O                   xxxxxxx                            x");
-    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx                    x");
+    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx          P         x");
     strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 }
 
-void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
+void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
     /* PLACAR */
 
@@ -55,12 +56,16 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar) 
 
     DesenhaBlocos(mapa);
 
+    /* PORTA */
+
+    DesenhaPorta(mapa, porta);
+
     /* DAVE */
 
     DesenhaDave(dave, dave->posX, dave->posY);
 }
 
-void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* PLACAR */
     
@@ -68,9 +73,19 @@ void ProcessaEventos(int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar
         atualiza_placar(placar);
     }
 
+    /* PORTA */
+
+    AtualizaPorta(porta);
+
     /* DAVE */
 
     movimenta_dave(entrada, dave, mapa);
+
+    /* TESTA FIM */
+
+    if(TemPorta(dave->posX, dave->posY, porta)) {
+        *fim = 1;
+    }
     
 }
 
@@ -97,9 +112,11 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     placar_t placar = {0, 0, 0, 1, 5}; //CRIA O PLACAR
 
+    struct Porta porta;
+
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
-    DesenhaElementos(&dave, mapa, &placar); //DESENHA OS ELEMENTOS NA TELA
+    DesenhaElementos(&dave, mapa, &placar, &porta); //DESENHA OS ELEMENTOS NA TELA
 
     int entrada;
 
@@ -136,7 +153,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
         //TODO
-        ProcessaEventos(entrada, mapa, &dave, &placar); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
+        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
         if(salvar)
         {
