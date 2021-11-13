@@ -31,21 +31,30 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 
     if(arquivo != NULL) {
 
-        char linha[LARGMAX + 2];
+        int x = 0, y = 0, fim = 0;
+        char temp;
 
-        for(int y = 0; y < ALTMAX; y++) { //EXECUTA 24 VEZES (0 a 23)
+        while(!fim) {
+            temp = fgetc(arquivo);
 
-            fflush(arquivo);
-            fgets(linha, LARGMAX + 2, arquivo);
-
-            for(int x = 0; x < LARGMAX; x++) { //EXECUTA 60 VEZES (0 a 59)
-
-                if(linha[x] != '\n' && linha[x] != '\0') {
-                    saida[ALT_PLACAR + y][x] = linha[x];
+            if(temp == '\n') {
+                x = 0;
+                y++;
+            } else if(temp == '\0') {
+                fim = 1;
+            } else {
+                if(x < LARGMAX && y < ALTMAX) {
+                    saida[y][x] = temp;
+                } else if(x >= LARGMAX && y < ALTMAX - 1) {
+                    x = 0;
+                    y++;
+                    saida[y][x] = temp;
                 } else {
-                    saida[ALT_PLACAR + y][x] = ' ';
+                    fim = 1;
                 }
             }
+
+            x++;
         }
 
     }
@@ -101,7 +110,6 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
 
-    /*
     for(int i = 0; i < ALT_PLACAR; i++) {
         printf("\n");
     }
@@ -110,8 +118,8 @@ void ExecutaJogo(int* estado, int* encerrar)
         for(int x = 0; x < LARGMAX; x++) {
             printf("%c", mapa[y][x]);
         }
+        printf("\n");
     }
-    */
    
     system("pause");
 
@@ -127,9 +135,7 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     while(!terminar)
     {
-        /* RECEBE ENTRADA - TEMPO INTEIRO */
 
-    /*
         entrada = RecebeEntrada();
 
         switch(entrada) //TRATA AS TECLAS ESPECIAIS
@@ -154,9 +160,7 @@ void ExecutaJogo(int* estado, int* encerrar)
                 break;
         }
 
-        /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
-        /*
         //TODO
         ProcessaEventos(entrada, mapa, &dave); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
@@ -169,9 +173,6 @@ void ExecutaJogo(int* estado, int* encerrar)
         Sleep(DELAY);
     }
 
-    /* FIM DA FUNÇÃO */
-
-    /*
     if(!novo)
         *estado = MENU; //SE NÃO FOR REINICIAR O JOGO, VOLTA PARA O MENU INICIAL
     */
