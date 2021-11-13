@@ -16,6 +16,16 @@
 #ifndef RELIQUIAS_H
 #define RELIQUIAS_H
 
-//código
+enum coletaveis {AMETISTA = 1, SAFIRA, RUBI, ANEL, COROA};
+
+struct Coletaveis {
+    int tipo;
+    int x;
+    int y;
+};
+
+void DesenhaColetaveis(char mapa[ALTMAX][LARGMAX], struct Coletaveis itens[MAXCOLET]);
+
+int coleta(Dave *dave, struct Coletaveis itens[MAXCOLET]);
 
 #endif

@@ -26,6 +26,7 @@
 #include "Bloco.h"
 #include "Porta.h"
 #include "Dave.h"
+#include "Coletaveis.h"
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
@@ -37,16 +38,16 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     strcpy(saida[12], "x                                                          x");
     strcpy(saida[13], "x                                                          x");
     strcpy(saida[14], "x                                                          x");
-    strcpy(saida[15], "x                                                          x");
+    strcpy(saida[15], "x                                      #                   x");
     strcpy(saida[16], "x                                                          x");
-    strcpy(saida[17], "x                                 xxxxxxx                  x");
-    strcpy(saida[18], "x                                                          x");
+    strcpy(saida[17], "x                            $    xxxxxxx                  x");
+    strcpy(saida[18], "x                  %                                       x");
     strcpy(saida[19], "x   O                   xxxxxxx                            x");
-    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx          P         x");
+    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx    @     P    !    x");
     strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 }
 
-void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
+void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
     /* PLACAR */
 
@@ -63,9 +64,13 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
     /* DAVE */
 
     DesenhaDave(dave, dave->posX, dave->posY);
+
+    /* COLETAVEIS */
+
+    DesenhaColetaveis(mapa, itens);
 }
 
-void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* PLACAR */
     
@@ -80,6 +85,34 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
     /* DAVE */
 
     movimenta_dave(entrada, dave, mapa);
+
+    /* COLETÁVEIS */
+
+    int coletado = coleta(dave, itens);
+
+    switch(coletado) {
+        case 0:
+        break;
+        case AMETISTA:
+        placar->pontos += 50;
+        placar->atualizado = 0;
+        break;
+        case SAFIRA:
+        placar->pontos += 100;
+        placar->atualizado = 0;
+        break;
+        case RUBI:
+        placar->pontos += 150;
+        placar->atualizado = 0;
+        break;
+        case ANEL:
+        placar->pontos += 200;
+        placar->atualizado = 0;
+        break;
+        default: /* COROA */
+        placar->pontos += 300;
+        placar->atualizado = 0;
+    }
 
     /* TESTA FIM */
 
@@ -116,7 +149,13 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
-    DesenhaElementos(&dave, mapa, &placar, &porta); //DESENHA OS ELEMENTOS NA TELA
+    struct Coletaveis itens[MAXCOLET];
+
+    for(int i = 0; i < MAXCOLET; i++) {
+        itens[i].tipo = 0;
+    }
+
+    DesenhaElementos(&dave, mapa, &placar, &porta, itens); //DESENHA OS ELEMENTOS NA TELA
 
     int entrada;
 
@@ -153,7 +192,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
         //TODO
-        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
+        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
         if(salvar)
         {
