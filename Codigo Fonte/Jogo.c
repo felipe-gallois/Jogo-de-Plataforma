@@ -31,52 +31,39 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 
     if(arquivo != NULL) {
 
-        int x = 0, y = 0, fim = 0;
-        char temp;
+        int x = 0, y = 0, nova_linha = 0, fim = 0;
+        char temp[LARGMAX + 2];
 
         while(!fim) {
-            temp = fgetc(arquivo);
+            fgets(temp, LARGMAX + 2, arquivo);
 
-            if(temp == '\n') {
-                x = 0;
-                y++;
-            } else if(temp == '\0') {
-                fim = 1;
-            } else {
-                if(x < LARGMAX && y < ALTMAX) {
-                    saida[y][x] = temp;
-                } else if(x >= LARGMAX && y < ALTMAX - 1) {
-                    x = 0;
-                    y++;
-                    saida[y][x] = temp;
-                } else {
+            while(x < LARGMAX && !nova_linha) {
+                switch(temp[x]) {
+                    case '\n':
+                    nova_linha = 1;
+                    break;
+                    case '\0':
                     fim = 1;
+                    nova_linha = 1;
+                    break;
+                    default:
+                    saida[y][x] = temp[x];
                 }
+                x++;
             }
 
-            x++;
+            if(y < ALTMAX - 1 && !fim) {
+                x = 0;
+                y++;
+                nova_linha = 0;
+            } else {
+                fim = 1;
+            }
         }
 
     }
 
     fclose(arquivo);
-
-    /* DEFINIÇÃO TEMPORÁRIA PARA FINS DE TESTE.
-       AGUARDAR AULA DE STREAMING DE ARQUIVOS PARA FAZER A VERDADEIRA DEFINIÇÃO DA FUNÇÃO
-    
-    strcpy(saida[10], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    strcpy(saida[11], "x                                                          x");
-    strcpy(saida[12], "x                                                          x");
-    strcpy(saida[13], "x                                                          x");
-    strcpy(saida[14], "x                                                          x");
-    strcpy(saida[15], "x                                                          x");
-    strcpy(saida[16], "x                                                          x");
-    strcpy(saida[17], "x                                 xxxxxxx                  x");
-    strcpy(saida[18], "x                                                          x");
-    strcpy(saida[19], "x   O                   xxxxxxx                            x");
-    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx                    x");
-    strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    */
 }
 
 void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
@@ -109,22 +96,7 @@ void ExecutaJogo(int* estado, int* encerrar)
     char mapa[ALTMAX][LARGMAX] = { 0 };
 
     CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
-
-    for(int i = 0; i < ALT_PLACAR; i++) {
-        printf("\n");
-    }
-
-    for(int y = 0; y < ALTMAX; y++) {
-        for(int x = 0; x < LARGMAX; x++) {
-            printf("%c", mapa[y][x]);
-        }
-        printf("\n");
-    }
-   
-    system("pause");
-
     
-    /*
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
     DesenhaElementos(&dave, mapa); //DESENHA OS ELEMENTOS NA TELA
@@ -173,7 +145,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         Sleep(DELAY);
     }
 
-    if(!novo)
+    if(!novo) {
         *estado = MENU; //SE NÃO FOR REINICIAR O JOGO, VOLTA PARA O MENU INICIAL
-    */
+    }
 }
