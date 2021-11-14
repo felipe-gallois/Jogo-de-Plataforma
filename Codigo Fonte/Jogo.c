@@ -30,21 +30,44 @@
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
-    /* DEFINIÇÃO TEMPORÁRIA PARA FINS DE TESTE.
-       AGUARDAR AULA DE STREAMING DE ARQUIVOS PARA FAZER A VERDADEIRA DEFINIÇÃO DA FUNÇÃO */
-    
-    strcpy(saida[10], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    strcpy(saida[11], "x                                                          x");
-    strcpy(saida[12], "x                                                          x");
-    strcpy(saida[13], "x                                                          x");
-    strcpy(saida[14], "x                                                          x");
-    strcpy(saida[15], "x                                      #                   x");
-    strcpy(saida[16], "x                                                          x");
-    strcpy(saida[17], "x                            $    xxxxxxx                  x");
-    strcpy(saida[18], "x                  %                                       x");
-    strcpy(saida[19], "x   O                   xxxxxxx                            x");
-    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx    @     P    !    x");
-    strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    FILE *arquivo;
+    arquivo = fopen(diretorio, "r");
+
+    if(arquivo != NULL) {
+
+        int x = 0, y = 0, nova_linha = 0, fim = 0;
+        char temp[LARGMAX + 2];
+
+        while(!fim) {
+            fgets(temp, LARGMAX + 2, arquivo);
+
+            while(x < LARGMAX && !nova_linha) {
+                switch(temp[x]) {
+                    case '\n':
+                    nova_linha = 1;
+                    break;
+                    case '\0':
+                    fim = 1;
+                    nova_linha = 1;
+                    break;
+                    default:
+                    saida[y][x] = temp[x];
+                }
+                x++;
+            }
+
+            if(y < ALTMAX - 1 && !fim) {
+                x = 0;
+                y++;
+                nova_linha = 0;
+            } else {
+                fim = 1;
+            }
+        }
+
+    }
+
+    fclose(arquivo);
 }
 
 void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
@@ -163,7 +186,6 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     while(!terminar)
     {
-        /* RECEBE ENTRADA - TEMPO INTEIRO */
 
         entrada = RecebeEntrada();
 
@@ -189,7 +211,6 @@ void ExecutaJogo(int* estado, int* encerrar)
                 break;
         }
 
-        /* ATUALIZA JOGO - APENAS NOS MOMENTOS OPORTUNOS */
 
         //TODO
         ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
@@ -203,8 +224,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         Sleep(DELAY);
     }
 
-    /* FIM DA FUNÇÃO */
-
-    if(!novo)
+    if(!novo) {
         *estado = MENU; //SE NÃO FOR REINICIAR O JOGO, VOLTA PARA O MENU INICIAL
+    }
 }
