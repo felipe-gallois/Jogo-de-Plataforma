@@ -36,10 +36,10 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 strcpy(saida[6],  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 strcpy(saida[7],  "x                                          xxxxxxxxxxxxxxxxx");
 strcpy(saida[8],  "x       T                                  xxxxxxxxxxxxxxxxx");
-strcpy(saida[9],  "x      xxx                                 xxxxxxxxxxxxxxxxx");
-strcpy(saida[10], "x   !							   x                      x");
-strcpy(saida[11], "x  xxxx    xxx                             @               x");
-strcpy(saida[12], "x                      J                                   x");
+strcpy(saida[9],  "x                                          xxxxxxxxxxxxxxxxx");
+strcpy(saida[10], "x   !   xxx                                                x");
+strcpy(saida[11], "x  xxxx     xxx                            @               x");
+strcpy(saida[12], "x                    J                                     x");
 strcpy(saida[13], "x               xxx                                        x");
 strcpy(saida[14], "x                                          xAAAAAx         x");
 strcpy(saida[15], "x              F                           xAAAAAx   FFF   x");
@@ -53,10 +53,10 @@ strcpy(saida[22], "x   xxxxxx                                 x               x"
 strcpy(saida[23], "x                                          x               x");
 strcpy(saida[24], "x                        %    %    %     $ x               x");
 strcpy(saida[25], "x      xxxxxxx                             x  F    FF      x");
-strcpy(saida[26], "x                !  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
-strcpy(saida[27], "x O    D        xx  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx  P  x");
-strcpy(saida[28], "x                   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
-strcpy(saida[28], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+strcpy(saida[26], "x               !   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
+strcpy(saida[27], "x O    D       xx   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
+strcpy(saida[28], "x   P               xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
+strcpy(saida[29], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
 
 }
@@ -123,14 +123,24 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
         placar->pontos += 200;
         placar->atualizado = 0;
         break;
-        default: /* COROA */
+        case COROA: /* COROA */
         placar->pontos += 300;
         placar->atualizado = 0;
+        break;
+        case TROFEU: /* TROFEU */
+        placar->pontos += 1000;
+        placar->atualizado = 0;
+        dave->trofeu = 1;
+        break;
+        case JETPACK: /* JETPACK */
+        placar->atualizado = 0;
+        dave->jetpack = 1;
+        break;
     }
 
     /* TESTA FIM */
 
-    if(TemPorta(dave->posX, dave->posY, porta)) {
+    if(TemPorta(dave->posX, dave->posY, porta) && dave->trofeu == 1) {
         *fim = 1;
     }
 

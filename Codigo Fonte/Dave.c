@@ -115,7 +115,28 @@ int no_ar(int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
 /* MOVIMENTA O DAVE, QUANDO POSSÍVEL, DE ACORDO COM A ENTRADA DO USUÁRIO */
 void movimenta_dave(int entrada, Dave *dave, char mapa[ALTMAX][LARGMAX]) {
 
-    if(no_ar(dave->posX, dave->posY, mapa)) { /* CASO DAVE ESTEJA NO AR */
+    if (dave->jetpack == 1) { /* CASO DAVE ESTEJA COM JETPACK */
+
+        switch(entrada) {
+                case DIREITA:
+                atualiza_se_puder(dave, dave->posX + 1, dave->posY, mapa);
+                dave->aceleracao = 1;
+                break;
+                case ESQUERDA:
+                atualiza_se_puder(dave, dave->posX - 1, dave->posY, mapa);
+                dave->aceleracao = -1;
+                break;
+                case CIMA:
+                atualiza_se_puder(dave, dave->posX + dave->aceleracao, dave->posY - 1, mapa);
+                break;
+                case BAIXO:
+                atualiza_se_puder(dave, dave->posX + dave->aceleracao, dave->posY + 1, mapa);
+                break;
+                default:
+                dave->aceleracao = 0;
+            }
+
+    } else if (no_ar(dave->posX, dave->posY, mapa)) { /* CASO DAVE ESTEJA NO AR */
 
         if(dave->saltando) { /* CASO DAVE ESTEJA NO AR E SALTANDO */
 

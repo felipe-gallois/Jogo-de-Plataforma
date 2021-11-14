@@ -23,6 +23,8 @@ typedef struct Dave
     int posX, posY;
     int saltando; /* NÚMERO DE BLOCOS QUE DAVE PRECISA SALTAR */
     int aceleracao; /* -1 PARA ESQUERDA, 0 PARA SEM ACELERAÇÃO, 1 PARA DIREITA */
+    int trofeu; // SE DAVE COLETOU O TROFEU
+    int jetpack; // SE DAVE COLETOU A JETPACK
 } Dave;
 
 int LocalizaDaveX(char mapa[ALTMAX][LARGMAX]);
