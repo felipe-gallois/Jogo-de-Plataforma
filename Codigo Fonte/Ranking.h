@@ -16,6 +16,8 @@
 #ifndef RANKING_H
 #define RANKING_H
 
-//código
+void BubbleSort(int *vet, int tamanho);
+
+void AtualizaRanking(int pontuacao);
 
 #endif

@@ -32,19 +32,33 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
     /* DEFINIÇÃO TEMPORÁRIA PARA FINS DE TESTE.
        AGUARDAR AULA DE STREAMING DE ARQUIVOS PARA FAZER A VERDADEIRA DEFINIÇÃO DA FUNÇÃO */
-    
-    strcpy(saida[10], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    strcpy(saida[11], "x                                                          x");
-    strcpy(saida[12], "x                                                          x");
-    strcpy(saida[13], "x                                                          x");
-    strcpy(saida[14], "x                                                          x");
-    strcpy(saida[15], "x                                      #                   x");
-    strcpy(saida[16], "x                                                          x");
-    strcpy(saida[17], "x                            $    xxxxxxx                  x");
-    strcpy(saida[18], "x                  %                                       x");
-    strcpy(saida[19], "x   O                   xxxxxxx                            x");
-    strcpy(saida[20], "x   D          xxxxxxx          xxxxxxx    @     P    !    x");
-    strcpy(saida[21], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+strcpy(saida[6],  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+strcpy(saida[7],  "x                                          xxxxxxxxxxxxxxxxx");
+strcpy(saida[8],  "x       T                                  xxxxxxxxxxxxxxxxx");
+strcpy(saida[9],  "x      xxx                                 xxxxxxxxxxxxxxxxx");
+strcpy(saida[10], "x   !							   x                      x");
+strcpy(saida[11], "x  xxxx    xxx                             @               x");
+strcpy(saida[12], "x                      J                                   x");
+strcpy(saida[13], "x               xxx                                        x");
+strcpy(saida[14], "x                                          xAAAAAx         x");
+strcpy(saida[15], "x              F                           xAAAAAx   FFF   x");
+strcpy(saida[16], "x          xxxxx                           xxxxxxxxxxxxx   x");
+strcpy(saida[17], "x                                          x               x");
+strcpy(saida[18], "x                                          x               x");
+strcpy(saida[19], "x       xxxx                               x               x");
+strcpy(saida[20], "x                                          x      FF    F @x");
+strcpy(saida[21], "x   !                                      x    xxxxxxxxxxxx");
+strcpy(saida[22], "x   xxxxxx                                 x               x");
+strcpy(saida[23], "x                                          x               x");
+strcpy(saida[24], "x                        %    %    %     $ x               x");
+strcpy(saida[25], "x      xxxxxxx                             x  F    FF      x");
+strcpy(saida[26], "x                !  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
+strcpy(saida[27], "x O    D        xx  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx  P  x");
+strcpy(saida[28], "x                   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x");
+strcpy(saida[28], "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+
 }
 
 void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
@@ -73,7 +87,7 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
 void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* PLACAR */
-    
+
     if(!(placar->atualizado)) {
         atualiza_placar(placar);
     }
@@ -119,7 +133,7 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
     if(TemPorta(dave->posX, dave->posY, porta)) {
         *fim = 1;
     }
-    
+
 }
 
 void SalvaJogo(Dave *dave, placar_t *placar)
