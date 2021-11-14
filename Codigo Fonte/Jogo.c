@@ -132,14 +132,24 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
         placar->pontos += 200;
         placar->atualizado = 0;
         break;
-        default: /* COROA */
+        case COROA: /* COROA */
         placar->pontos += 300;
         placar->atualizado = 0;
+        break;
+        case TROFEU: /* TROFEU */
+        placar->pontos += 1000;
+        placar->atualizado = 0;
+        dave->trofeu = 1;
+        break;
+        case JETPACK: /* JETPACK */
+        placar->atualizado = 0;
+        dave->jetpack = 1;
+        break;
     }
 
     /* TESTA FIM */
 
-    if(TemPorta(dave->posX, dave->posY, porta)) {
+    if(TemPorta(dave->posX, dave->posY, porta) && dave->trofeu == 1) {
         *fim = 1;
     }
 

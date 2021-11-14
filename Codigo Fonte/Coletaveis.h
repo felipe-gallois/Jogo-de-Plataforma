@@ -16,7 +16,7 @@
 #ifndef RELIQUIAS_H
 #define RELIQUIAS_H
 
-enum coletaveis {AMETISTA = 1, SAFIRA, RUBI, ANEL, COROA};
+enum coletaveis {AMETISTA = 1, SAFIRA, RUBI, ANEL, COROA, JETPACK, TROFEU};
 
 struct Coletaveis {
     int tipo;

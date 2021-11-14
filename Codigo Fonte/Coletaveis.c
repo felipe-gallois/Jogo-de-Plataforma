@@ -53,6 +53,20 @@ void desenha_coroa(int posX, int posY) {
     putchxy(posX, posY, 14);
 }
 
+void desenha_jetpack(int posX, int posY) {
+    textbackground(GREEN);
+    textcolor(BLACK);
+
+    putchxy(posX, posY, '"');
+}
+
+void desenha_trofeu(int posX, int posY) {
+    textbackground(BLACK);
+    textcolor(YELLOW);
+
+    putchxy(posX, posY, 'T');
+}
+
 void DesenhaColetaveis(char mapa[ALTMAX][LARGMAX], struct Coletaveis itens[MAXCOLET])
 {
     textbackground(BROWN);
@@ -108,6 +122,24 @@ void DesenhaColetaveis(char mapa[ALTMAX][LARGMAX], struct Coletaveis itens[MAXCO
                     itens[n].x = 1 + 2 * x;
                     itens[n].y = 1 + y;
                     desenha_coroa(1 + 2 * x, 1 + y);
+                    n++;
+                }
+                break;
+                case 'J': /* JETPACK */
+                if(n < MAXCOLET) {
+                    itens[n].tipo = JETPACK;
+                    itens[n].x = 1 + 2 * x;
+                    itens[n].y = 1 + y;
+                    desenha_jetpack(1 + 2 * x, 1 + y);
+                    n++;
+                }
+                break;
+                case 'T': /* TROFEU */
+                if(n < MAXCOLET) {
+                    itens[n].tipo = TROFEU;
+                    itens[n].x = 1 + 2 * x;
+                    itens[n].y = 1 + y;
+                    desenha_trofeu(1 + 2 * x, 1 + y);
                     n++;
                 }
                 break;
