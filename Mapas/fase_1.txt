@@ -10,7 +10,7 @@ x       T                                  xxxxxxxxxxxxxxxxx
 x      xxx                                 xxxxxxxxxxxxxxxxx
 x   !							   x
 x  xxxx    xxx                             @               x
-x                      J                                   x
+x                    J                                     x
 x               xxx                                        x
 x                                          xAAAAAx         x
 x              F                           xAAAAAx   FFF   x
@@ -24,7 +24,7 @@ x   xxxxxx                                 x               x
 x                                          x               x
 x                        %    %    %     $ x               x
 x      xxxxxxx                             x  F    FF      x
-x                !  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
-x O             xx  xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
+x               !   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
+x O            xx   xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx     x
 x   D               xAAAAAAAAAAAAAAAAAAAAAAxxxxxxxxxxx    Px
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
