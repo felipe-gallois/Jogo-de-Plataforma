@@ -96,7 +96,7 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
 void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* PLACAR */
-    
+
     if(!(placar->atualizado)) {
         atualiza_placar(placar);
     }
@@ -142,7 +142,7 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
     if(TemPorta(dave->posX, dave->posY, porta)) {
         *fim = 1;
     }
-    
+
 }
 
 void SalvaJogo(Dave *dave, placar_t *placar)
