@@ -8,11 +8,11 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 x                                                     x T  x
 x            J                                        x    x
 x                                                     xx   x
-x    F   xxxxx                                        x   xx
-x@F  xxx     x                                        x    x
+x        xxxxx                                        x   xx
+x@   xxx     x                                        x    x
 xxx          x                                        xxx  x
 x            x                                        x    x
-x      F     x                                        x   xx
+x            x                                        x   xx
 x   xxxxxx   x                                        x    x
 x            x                                        xxx  x
 x            x                                        x    x
