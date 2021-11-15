@@ -17,6 +17,8 @@
 #include "Constantes.h"
 #include "Dave.h"
 
+/* DESENHA OS BLOCOS DE FOGO */
+
 void DesenhaFogo(char mapa[ALTMAX][LARGMAX]){
 
     textbackground(LIGHTRED);
@@ -35,6 +37,8 @@ void DesenhaFogo(char mapa[ALTMAX][LARGMAX]){
     }
 
 }
+
+/* RETORNA SE HÁ BLOCO DE FOGO NA POSIÇÃO ESPECIFICADA */
 
 int TemFogo(int posx, int posy, char mapa[ALTMAX][LARGMAX]) {
 

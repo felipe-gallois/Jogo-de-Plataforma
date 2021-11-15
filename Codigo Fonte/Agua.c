@@ -16,6 +16,8 @@
 #include "conio2.h"
 #include "Constantes.h"
 
+/* DESENHA BLOCOS DE ÁGUA */
+
 void DesenhaAgua(char mapa[ALTMAX][LARGMAX]) {
 
     textbackground(LIGHTBLUE);
@@ -34,6 +36,8 @@ void DesenhaAgua(char mapa[ALTMAX][LARGMAX]) {
     }
 
 }
+
+/* RETORNA SE HÁ BLOCO DE ÁGUA NA POSIÇÃO ESPECIFICADA */
 
 int TemAgua(int posx, int posy, char mapa[ALTMAX][LARGMAX]) {
 
