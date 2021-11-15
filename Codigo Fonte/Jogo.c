@@ -27,6 +27,8 @@
 #include "Porta.h"
 #include "Dave.h"
 #include "Coletaveis.h"
+#include "Fogo.h"
+#include "Agua.h"
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
@@ -91,6 +93,10 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
     /* COLETAVEIS */
 
     DesenhaColetaveis(mapa, itens);
+
+    /* FOGO E AGUA */
+    DesenhaFogo(mapa);
+    DesenhaAgua(mapa);
 }
 
 void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
@@ -104,6 +110,11 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
     /* PORTA */
 
     AtualizaPorta(porta);
+
+    /* FOGO E AGUA */
+
+    DesenhaFogo(mapa); //ATUALIZA
+    DesenhaAgua(mapa); //ATUALIZA
 
     /* DAVE */
 

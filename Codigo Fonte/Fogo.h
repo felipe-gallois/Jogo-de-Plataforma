@@ -16,6 +16,8 @@
 #ifndef FOGO_H
 #define FOGO_H
 
-//código
+#include "Constantes.h"
+
+void DesenhaFogo(char mapa[ALTMAX][LARGMAX]);
 
 #endif
