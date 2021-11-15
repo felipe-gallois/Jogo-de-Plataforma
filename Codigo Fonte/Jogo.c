@@ -90,7 +90,7 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
 
 /* PROCESSA OS EVENTOS E ATUALIZA AS INFORMAÇÕES NO CONSOLE */
 
-void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+int ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     if(!(placar->atualizado)) {
         atualiza_placar(placar);
@@ -140,7 +140,10 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
 
     if(TemPorta(dave->posX, dave->posY, porta) && dave->trofeu == 1) {
         *fim = 1;
+        return 1;
     }
+
+    return 0;
 
 }
 
@@ -161,11 +164,21 @@ void SalvaJogo(Dave *dave, placar_t *placar)
 
 /* LOOP DE EXECUÇÃO DA PARTIDA */
 
-void ExecutaJogo(int *estado, int *encerrar)
+void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
 {
     char mapa[ALTMAX][LARGMAX] = { 0 };
 
-    CarregaMapa(MAPA1, mapa);
+    switch(*n_mapa) {
+        case 1:
+        CarregaMapa(MAPA1, mapa);
+        break;
+        case 2:
+        CarregaMapa(MAPA2, mapa);
+        break;
+        case 3:
+        CarregaMapa(MAPA3, mapa);
+        break;
+    }
 
     placar_t placar = {0, 0, 0, 1, 5};
 
@@ -185,7 +198,7 @@ void ExecutaJogo(int *estado, int *encerrar)
 
     int entrada;
 
-    int terminar = 0, novo = 0, salvar = 0;
+    int terminar = 0, novo = 0, salvar = 0, proxima_fase = 0;
 
     while(!terminar)
     {
@@ -194,12 +207,14 @@ void ExecutaJogo(int *estado, int *encerrar)
         switch(entrada)
         {
             case ESC:
+                *n_mapa = 1;
                 terminar = 1;
                 novo = 0;
                 salvar = 0;
                 *estado = MENU;
                 break;
             case N:
+                *n_mapa = 1;
                 terminar = 1;
                 novo = 1;
                 salvar = 0;
@@ -213,7 +228,7 @@ void ExecutaJogo(int *estado, int *encerrar)
                 break;
         }
 
-        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem);
+        proxima_fase = ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem);
 
         if(salvar)
         {
@@ -224,7 +239,14 @@ void ExecutaJogo(int *estado, int *encerrar)
         Sleep(DELAY);
     }
 
-    if(!novo) {
+    if(proxima_fase) {
+        if(*n_mapa + 1 > NUM_FASES) {
+            *n_mapa = 1;
+            *estado = MENU;
+        } else {
+            (*n_mapa)++;
+        }
+    } else if(!novo) {
         *estado = MENU;
     }
 }
