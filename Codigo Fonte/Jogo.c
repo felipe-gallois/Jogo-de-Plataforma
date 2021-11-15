@@ -26,6 +26,8 @@
 #include "Entrada.h"
 #include "Dave.h"
 #include "Coletaveis.h"
+#include "Fogo.h"
+#include "Agua.h"
 
 /* CARREGA O MAPA DO ARQUIVO PARA UMA MATRIZ */
 
@@ -86,11 +88,15 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
     DesenhaDave(dave, dave->posX, dave->posY);
 
     DesenhaColetaveis(mapa, itens);
+
+    DesenhaFogo(mapa);
+
+    DesenhaAgua(mapa);
 }
 
 /* PROCESSA OS EVENTOS E ATUALIZA AS INFORMAÇÕES NO CONSOLE */
 
-int ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+int ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem, int *vidas, int *novo) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     if(!(placar->atualizado)) {
         atualiza_placar(placar);
@@ -138,6 +144,15 @@ int ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dav
         break;
     }
 
+    if(TemAgua(dave->posX, dave->posY, mapa) || TemAgua(dave->posX, dave->posY - 1, mapa) ||
+         TemFogo(dave->posX, dave->posY, mapa) || TemFogo(dave->posX, dave->posY - 1, mapa)) {
+
+        (*vidas)--;
+        placar->atualizado = 0;
+        *novo = 1;
+        *fim = 1;
+    }
+
     if(TemPorta(dave->posX, dave->posY, porta) && dave->trofeu == 1) {
         *fim = 1;
         return 1;
@@ -164,7 +179,7 @@ void SalvaJogo(Dave *dave, placar_t *placar)
 
 /* LOOP DE EXECUÇÃO DA PARTIDA */
 
-void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
+void ExecutaJogo(int *estado, int *encerrar, int *n_mapa, int *vidas)
 {
     char mapa[ALTMAX][LARGMAX] = { 0 };
 
@@ -180,7 +195,7 @@ void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
         break;
     }
 
-    placar_t placar = {0, 0, 0, 1, 5};
+    placar_t placar = {0, 0, 0, 1, *vidas};
 
     struct Porta porta;
 
@@ -215,6 +230,7 @@ void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
                 break;
             case N:
                 *n_mapa = 1;
+                *vidas = VIDAS;
                 terminar = 1;
                 novo = 1;
                 salvar = 0;
@@ -228,7 +244,7 @@ void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
                 break;
         }
 
-        proxima_fase = ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem);
+        proxima_fase = ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem, vidas, &novo);
 
         if(salvar)
         {
@@ -237,6 +253,11 @@ void ExecutaJogo(int *estado, int *encerrar, int *n_mapa)
         }
 
         Sleep(DELAY);
+    }
+
+    if(*vidas == 0) {
+        *n_mapa = 1;
+        *estado = MENU;
     }
 
     if(proxima_fase) {

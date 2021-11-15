@@ -153,6 +153,9 @@ void movimenta_dave(int entrada, Dave *dave, char mapa[ALTMAX][LARGMAX]) {
                 case BAIXO:
                 atualiza_se_puder(dave, dave->posX + dave->aceleracao, dave->posY + 1, mapa);
                 break;
+                case SPCBR:
+                dave->jetpack = 0;
+                break;
                 default:
                 dave->aceleracao = 0;
             }

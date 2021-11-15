@@ -16,6 +16,10 @@
 #ifndef AGUA_H
 #define AGUA_H
 
-//código
+#include "Constantes.h"
+
+void DesenhaAgua(char mapa[ALTMAX][LARGMAX]);
+
+int TemAgua(int posx, int posy, char mapa[ALTMAX][LARGMAX]);
 
 #endif

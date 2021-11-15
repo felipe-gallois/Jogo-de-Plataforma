@@ -24,13 +24,14 @@
 int main() {
 
     int encerrar = 0, estado = ESTADOINI;
-    int mapa = 1;
+    int mapa = 1, vidas;
 
     while(!encerrar)
     {
         switch(estado)
         {
             case MENU:
+            vidas = VIDAS;
             textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
             system("cls");
             ExecutaMenu(&estado, &encerrar);
@@ -38,7 +39,7 @@ int main() {
             case JOGO:
             textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
             system("cls");
-            ExecutaJogo(&estado, &encerrar, &mapa);
+            ExecutaJogo(&estado, &encerrar, &mapa, &vidas);
             break;
             case RANKING:
             textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
