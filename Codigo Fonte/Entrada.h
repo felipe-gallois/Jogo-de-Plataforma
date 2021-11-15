@@ -16,6 +16,13 @@
 #ifndef ENTRADA_H
 #define ENTRADA_H
 
-//código
+struct Entrada {
+    int x;
+    int y;
+};
+
+void desenha_entrada(struct Entrada *entrada, char mapa[ALTMAX][LARGMAX]);
+
+void atualiza_entrada(struct Entrada *entrada);
 
 #endif

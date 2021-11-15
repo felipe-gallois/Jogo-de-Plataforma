@@ -25,6 +25,7 @@
 #include "Placar.h"
 #include "Bloco.h"
 #include "Porta.h"
+#include "Entrada.h"
 #include "Dave.h"
 #include "Coletaveis.h"
 
@@ -70,7 +71,7 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     fclose(arquivo);
 }
 
-void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
+void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
     /* PLACAR */
 
@@ -84,6 +85,10 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
 
     DesenhaPorta(mapa, porta);
 
+    /* ENTRADA */
+
+    desenha_entrada(origem, mapa);
+
     /* DAVE */
 
     DesenhaDave(dave, dave->posX, dave->posY);
@@ -93,7 +98,7 @@ void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, 
     DesenhaColetaveis(mapa, itens);
 }
 
-void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET]) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
+void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
     /* PLACAR */
 
@@ -104,6 +109,10 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
     /* PORTA */
 
     AtualizaPorta(porta);
+
+    /* ENTRADA */
+
+    atualiza_entrada(origem);
 
     /* DAVE */
 
@@ -168,7 +177,7 @@ void SalvaJogo(Dave *dave, placar_t *placar)
     fclose(arquivo);
 }
 
-void ExecutaJogo(int* estado, int* encerrar)
+void ExecutaJogo(int *estado, int *encerrar)
 {
     //OBS: FALTA IMPLEMENTAR A POSSIBILIDADE DE CARREGAR PARTIDAS SALVAS
 
@@ -180,6 +189,8 @@ void ExecutaJogo(int* estado, int* encerrar)
 
     struct Porta porta;
 
+    struct Entrada origem;
+
     Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
 
     struct Coletaveis itens[MAXCOLET];
@@ -188,7 +199,7 @@ void ExecutaJogo(int* estado, int* encerrar)
         itens[i].tipo = 0;
     }
 
-    DesenhaElementos(&dave, mapa, &placar, &porta, itens); //DESENHA OS ELEMENTOS NA TELA
+    DesenhaElementos(&dave, mapa, &placar, &porta, itens, &origem); //DESENHA OS ELEMENTOS NA TELA
 
     int entrada;
 
@@ -223,7 +234,7 @@ void ExecutaJogo(int* estado, int* encerrar)
 
 
         //TODO
-        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
+        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
 
         if(salvar)
         {
