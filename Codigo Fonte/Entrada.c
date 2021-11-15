@@ -17,6 +17,8 @@
 #include "Constantes.h"
 #include "Entrada.h"
 
+/* DESENHA A ENTRADA */
+
 void desenha_entrada(struct Entrada *entrada, char mapa[ALTMAX][LARGMAX]) {
 
     textcolor(BLACK);
@@ -39,6 +41,8 @@ void desenha_entrada(struct Entrada *entrada, char mapa[ALTMAX][LARGMAX]) {
         }
     }
 }
+
+/* REDESENHA A ENTRADA */
 
 void atualiza_entrada(struct Entrada *entrada) {
 

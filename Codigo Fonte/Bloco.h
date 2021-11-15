@@ -18,8 +18,6 @@
 
 #include "Constantes.h"
 
-/* DECLARAÇÕES */
-
 int TemBloco(int posx, int posy, char mapa[ALTMAX][LARGMAX]);
 
 void DesenhaBlocos(char mapa[ALTMAX][LARGMAX]);

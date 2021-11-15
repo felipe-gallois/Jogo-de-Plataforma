@@ -13,11 +13,9 @@
     E PROGRAMAÇÃO DO SEGUNDO SEMESTRE DE 2021.
 */
 
-/* INCLUDES */
-#include <stdio.h> //FILE
-#include <string.h> //STRCPY
-#include <stdlib.h> //MALLOC
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <windows.h>
 
 #include "Entradas.h"
@@ -28,6 +26,8 @@
 #include "Entrada.h"
 #include "Dave.h"
 #include "Coletaveis.h"
+
+/* CARREGA O MAPA DO ARQUIVO PARA UMA MATRIZ */
 
 void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
 {
@@ -71,54 +71,36 @@ void CarregaMapa(const char* diretorio, char saida[ALTMAX][LARGMAX])
     fclose(arquivo);
 }
 
+/* DESENHA TODOS OS ELEMENTOS NA TELA */
+
 void DesenhaElementos(Dave *dave, char mapa[ALTMAX][LARGMAX], placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //DESENHA OS ELEMENTOS ESTÁTICOS DO MAPA
 {
-    /* PLACAR */
-
     desenha_placar(placar);
-
-    /* BLOCOS */
 
     DesenhaBlocos(mapa);
 
-    /* PORTA */
-
     DesenhaPorta(mapa, porta);
-
-    /* ENTRADA */
 
     desenha_entrada(origem, mapa);
 
-    /* DAVE */
-
     DesenhaDave(dave, dave->posX, dave->posY);
-
-    /* COLETAVEIS */
 
     DesenhaColetaveis(mapa, itens);
 }
 
+/* PROCESSA OS EVENTOS E ATUALIZA AS INFORMAÇÕES NO CONSOLE */
+
 void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *dave, placar_t *placar, struct Porta *porta, struct Coletaveis itens[MAXCOLET], struct Entrada *origem) //EXECUTADO A CADA TICK DO JOGO. ATUALIZA OS EVENTOS.
 {
-    /* PLACAR */
-
     if(!(placar->atualizado)) {
         atualiza_placar(placar);
     }
 
-    /* PORTA */
-
     AtualizaPorta(porta);
-
-    /* ENTRADA */
 
     atualiza_entrada(origem);
 
-    /* DAVE */
-
     movimenta_dave(entrada, dave, mapa);
-
-    /* COLETÁVEIS */
 
     int coletado = coleta(dave, itens);
 
@@ -141,28 +123,28 @@ void ProcessaEventos(int *fim, int entrada, char mapa[ALTMAX][LARGMAX], Dave *da
         placar->pontos += 200;
         placar->atualizado = 0;
         break;
-        case COROA: /* COROA */
+        case COROA:
         placar->pontos += 300;
         placar->atualizado = 0;
         break;
-        case TROFEU: /* TROFEU */
+        case TROFEU:
         placar->pontos += 1000;
         placar->atualizado = 0;
         dave->trofeu = 1;
         break;
-        case JETPACK: /* JETPACK */
+        case JETPACK:
         placar->atualizado = 0;
         dave->jetpack = 1;
         break;
     }
-
-    /* TESTA FIM */
 
     if(TemPorta(dave->posX, dave->posY, porta) && dave->trofeu == 1) {
         *fim = 1;
     }
 
 }
+
+/* SALVA OS DADOS EM UM ARQUIVO */
 
 void SalvaJogo(Dave *dave, placar_t *placar)
 {
@@ -177,21 +159,21 @@ void SalvaJogo(Dave *dave, placar_t *placar)
     fclose(arquivo);
 }
 
+/* LOOP DE EXECUÇÃO DA PARTIDA */
+
 void ExecutaJogo(int *estado, int *encerrar)
 {
-    //OBS: FALTA IMPLEMENTAR A POSSIBILIDADE DE CARREGAR PARTIDAS SALVAS
-
     char mapa[ALTMAX][LARGMAX] = { 0 };
 
-    CarregaMapa(MAPA1, mapa); //EM DESENVOLVIMENTO
+    CarregaMapa(MAPA1, mapa);
 
-    placar_t placar = {0, 0, 0, 1, 5}; //CRIA O PLACAR
+    placar_t placar = {0, 0, 0, 1, 5};
 
     struct Porta porta;
 
     struct Entrada origem;
 
-    Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)}; //CRIA O DAVE
+    Dave dave = {LocalizaDaveX(mapa), LocalizaDaveY(mapa)};
 
     struct Coletaveis itens[MAXCOLET];
 
@@ -199,18 +181,17 @@ void ExecutaJogo(int *estado, int *encerrar)
         itens[i].tipo = 0;
     }
 
-    DesenhaElementos(&dave, mapa, &placar, &porta, itens, &origem); //DESENHA OS ELEMENTOS NA TELA
+    DesenhaElementos(&dave, mapa, &placar, &porta, itens, &origem);
 
     int entrada;
 
-    int terminar = 0, novo = 0, salvar = 0; //VARIÁVEIS DE CONTROLE
+    int terminar = 0, novo = 0, salvar = 0;
 
     while(!terminar)
     {
-
         entrada = RecebeEntrada();
 
-        switch(entrada) //TRATA AS TECLAS ESPECIAIS
+        switch(entrada)
         {
             case ESC:
                 terminar = 1;
@@ -232,13 +213,11 @@ void ExecutaJogo(int *estado, int *encerrar)
                 break;
         }
 
-
-        //TODO
-        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem); //CALCULA E ALTERA AS POSIÇÕES DOS ELEMENTOS
+        ProcessaEventos(&terminar, entrada, mapa, &dave, &placar, &porta, itens, &origem);
 
         if(salvar)
         {
-            SalvaJogo(&dave, &placar); //TODO
+            SalvaJogo(&dave, &placar);
             salvar = 0;
         }
 
@@ -246,6 +225,6 @@ void ExecutaJogo(int *estado, int *encerrar)
     }
 
     if(!novo) {
-        *estado = MENU; //SE NÃO FOR REINICIAR O JOGO, VOLTA PARA O MENU INICIAL
+        *estado = MENU;
     }
 }

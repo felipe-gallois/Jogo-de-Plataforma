@@ -13,48 +13,47 @@
     E PROGRAMAÇÃO DO SEGUNDO SEMESTRE DE 2021.
 */
 
-//#include <ctype.h> //PARA TRABALHAR COM CARACTERES FORA DO PADRÃO ASCII
 #include <windows.h>
 
-#include "conio2.h" //_GETCH
+#include "conio2.h"
 #include "Entradas.h"
 #include "Constantes.h"
 
-int RecebeEntrada()
-{
+int RecebeEntrada() {
+
     if(_kbhit())
     {
         int entrada = _getch();
 
         switch(entrada)
         {
-            case 224: //SETAS DO TECLADO
+            case 224:
                 entrada = _getch();
 
                 switch(entrada)
                 {
-                    case 72: //PARA CIMA
+                    case 72:
                         return CIMA;
-                    case 75: //PARA A ESQUERDA
+                    case 75:
                         return ESQUERDA;
-                    case 77: //PARA A DIREITA
+                    case 77:
                         return DIREITA;
-                    case 80: //PARA BAIXO
+                    case 80:
                         return BAIXO;
                     default:
                         return INVALIDO;
                 }
-            case 27: //ESC
+            case 27:
                 return ESC;
-            case 83: //S MAIÚSCULO
+            case 83:
                 return S;
-            case 115: //S MINÚSCULO
+            case 115:
                 return S;
-            case 78: //N MAIÚSCULO
+            case 78:
                 return N;
-            case 110: //N MINÚSCULO
+            case 110:
                 return N;
-            case 32: //BARRA DE ESPAÇO
+            case 32:
                 return SPCBR;
             case 13:
                 return ENTER;

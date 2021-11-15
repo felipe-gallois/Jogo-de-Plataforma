@@ -17,6 +17,8 @@
 #include "Constantes.h"
 #include "Porta.h"
 
+/* RETORNA SE A PORTA ESTÁ NA POSIÇÃO ESPECIFICADA */
+
 int TemPorta(int posx, int posy, struct Porta *porta)
 {
     if(posy == porta->y) {
@@ -27,6 +29,8 @@ int TemPorta(int posx, int posy, struct Porta *porta)
 
     return 0;
 }
+
+/* DESENHA A PORTA */
 
 void DesenhaPorta(char mapa[ALTMAX][LARGMAX], struct Porta *porta)
 {
@@ -51,7 +55,10 @@ void DesenhaPorta(char mapa[ALTMAX][LARGMAX], struct Porta *porta)
     }
 }
 
+/* ATUALIZA O DESENHO DA PORTA */
+
 void AtualizaPorta(struct Porta *porta) {
+    
     textbackground(BROWN);
     textcolor(BLACK);
 

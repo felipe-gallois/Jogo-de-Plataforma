@@ -13,48 +13,39 @@
     E PROGRAMAÇÃO DO SEGUNDO SEMESTRE DE 2021.
 */
 
-/* INCLUDES */
-#include <stdlib.h> //SYSTEM
+#include <stdlib.h>
 
 #include "conio2.h"
-
 #include "Menu.h"
 #include "Entradas.h"
 #include "Jogo.h"
 #include "Constantes.h"
 
-/* MAIN */
-int main()
-{
-    /* INÍCIO DO PROGRAMA */
+int main() {
 
     int encerrar = 0, estado = ESTADOINI;
-
-    /* LOOP PRINCIPAL */
 
     while(!encerrar)
     {
         switch(estado)
         {
             case MENU:
-                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
-                system("cls");
-                ExecutaMenu(&estado, &encerrar);
-                break;
+            textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
+            system("cls");
+            ExecutaMenu(&estado, &encerrar);
+            break;
             case JOGO:
-                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
-                system("cls");
-                ExecutaJogo(&estado, &encerrar);
-                break;
+            textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
+            system("cls");
+            ExecutaJogo(&estado, &encerrar);
+            break;
             case RANKING:
-                textbackground(BLACK); //PARA NÃO COLORIR A TELA ACIDENTALMENTE
-                system("cls");
-                //ExecutaRanking(); //TODO
-                break;
+            textbackground(BLACK); /* PARA NÃO COLORIR A TELA ACIDENTALMENTE */
+            system("cls");
+            /* ExecutaRanking(); -> TODO */
+            break;
         }
     }
-
-    /* FIM DO PROGRAMA */
 
     return 0;
 }

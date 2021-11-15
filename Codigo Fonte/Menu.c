@@ -17,7 +17,6 @@
 #include <string.h>
 
 #include "conio2.h"
-
 #include "Constantes.h"
 #include "Entradas.h"
 
@@ -38,7 +37,10 @@
 
 #define COR RED
 
+/* RESTRINGE A SELEÇÃO DO MENU AOS VALORES EXISTENTES */
+
 int limita(int selecao) {
+
     if(selecao < NOVO) {
         return NOVO;
     }
@@ -50,11 +52,15 @@ int limita(int selecao) {
     return selecao;
 }
 
+/* DESENHA O BOTÃO DE NOVO JOGO */
+
 void desenha_nj() {
     cputsxy(LARGMAX - (int) (strlen(NJ_LINHA) / 2), MARGEM_TOPO, NJ_LINHA);
     cputsxy(LARGMAX - (int) (strlen(NJ_TEXTO) / 2), MARGEM_TOPO + 1, NJ_TEXTO);
     cputsxy(LARGMAX - (int) (strlen(NJ_LINHA) / 2), MARGEM_TOPO + 2, NJ_LINHA);
 }
+
+/* DESENHA O BOTÃO DE CARREGAMENTO */
 
 void desenha_car() {
     cputsxy(LARGMAX - (int) (strlen(CAR_LINHA) / 2), MARGEM_TOPO + DISTANCIA, CAR_LINHA);
@@ -62,17 +68,23 @@ void desenha_car() {
     cputsxy(LARGMAX - (int) (strlen(CAR_LINHA) / 2), MARGEM_TOPO + DISTANCIA + 2, CAR_LINHA);
 }
 
+/* DESENHA O BOTÃO DE RANKING */
+
 void desenha_rank() {
     cputsxy(LARGMAX - (int) (strlen(RANK_LINHA) / 2), MARGEM_TOPO + DISTANCIA * 2, RANK_LINHA);
     cputsxy(LARGMAX - (int) (strlen(RANK_TEXTO) / 2), MARGEM_TOPO + DISTANCIA * 2 + 1, RANK_TEXTO);
     cputsxy(LARGMAX - (int) (strlen(RANK_LINHA) / 2), MARGEM_TOPO + DISTANCIA * 2 + 2, RANK_LINHA);
 }
 
+/* DESENHA O BOTÃO DE SAIR */
+
 void desenha_sair() {
     cputsxy(LARGMAX - (int) (strlen(SAIR_LINHA) / 2), MARGEM_TOPO + DISTANCIA * 3, SAIR_LINHA);
     cputsxy(LARGMAX - (int) (strlen(SAIR_TEXTO) / 2), MARGEM_TOPO + DISTANCIA * 3 + 1, SAIR_TEXTO);
     cputsxy(LARGMAX - (int) (strlen(SAIR_LINHA) / 2), MARGEM_TOPO + DISTANCIA * 3 + 2, SAIR_LINHA);
 }
+
+/* DESENHA O MENU */
 
 void desenha_menu(int *selecao) {
 
@@ -92,6 +104,8 @@ void desenha_menu(int *selecao) {
 
     *selecao = NOVO;
 }
+
+/* ATUALIZA O MENU PARA O ESTADO MAIS RECENTE */
 
 void atualiza_menu(int *anterior, int posterior) {
 
@@ -134,6 +148,8 @@ void atualiza_menu(int *anterior, int posterior) {
     *anterior = posterior;
 }
 
+/* EXECUTA O LOOP DO MENU */
+
 void ExecutaMenu(int* estado, int* encerrar) {
 
     int selecao, entrada;
@@ -142,6 +158,7 @@ void ExecutaMenu(int* estado, int* encerrar) {
     desenha_menu(&selecao);
 
     while(!terminar) {
+        
         entrada = RecebeEntrada();
 
         switch(entrada) {
@@ -158,20 +175,19 @@ void ExecutaMenu(int* estado, int* encerrar) {
             entrada = -1;
             break;
             case ENTER:
-                switch (selecao)
-                {
-                case NOVO:
-                *estado = JOGO;
-                terminar = 1;
-                break;
-                case CARREGAR:
-                break;
-                case RANK:
-                break;
-                case SAIR:
-                *encerrar = 1;
-                terminar = 1;
-                break;
+                switch (selecao) {
+                    case NOVO:
+                    *estado = JOGO;
+                    terminar = 1;
+                    break;
+                    case CARREGAR:
+                    break;
+                    case RANK:
+                    break;
+                    case SAIR:
+                    *encerrar = 1;
+                    terminar = 1;
+                    break;
                 }
             break;
         }

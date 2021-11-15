@@ -18,68 +18,81 @@
 #include "Dave.h"
 #include "Bloco.h"
 
-int LocalizaDaveX(char mapa[ALTMAX][LARGMAX])
-{
-    for(int y = 0; y < ALTMAX; y++)
-    {
-        for(int x = 0; x < LARGMAX; x++)
-        {
-            if(mapa[y][x] == 'D')
-            {
+/* RETORNA A POSIÇÃO X DO DAVE */
+
+int LocalizaDaveX(char mapa[ALTMAX][LARGMAX]) {
+
+    for(int y = 0; y < ALTMAX; y++) {
+
+        for(int x = 0; x < LARGMAX; x++) {
+
+            if(mapa[y][x] == 'D') {
+
                 return 1 + 2 * x;
             }
         }
     }
 
-    return 0; //VALOR PADRÃO
+    return 0;
 }
 
-int LocalizaDaveY(char mapa[ALTMAX][LARGMAX])
-{
-    for(int y = 0; y < ALTMAX; y++)
-    {
-        for(int x = 0; x < LARGMAX; x++)
-        {
-            if(mapa[y][x] == 'D')
-            {
+/* RETORNA A POSIÇÃO Y DO DAVE */
+
+int LocalizaDaveY(char mapa[ALTMAX][LARGMAX]) {
+
+    for(int y = 0; y < ALTMAX; y++) {
+
+        for(int x = 0; x < LARGMAX; x++) {
+
+            if(mapa[y][x] == 'D') {
+
                 return 1 + y;
             }
         }
     }
 
-    return 0; //VALOR PADRÃO
+    return 0;
 }
 
-void ApagaDave(Dave *dave)
-{
+/* APAGA A POSIÇÃO ANTIGA DO DAVE */
+
+void ApagaDave(Dave *dave) {
+
     textbackground(BLACK);
     putchxy(dave->posX, dave->posY, ' ');
     putchxy(dave->posX, dave->posY - 1, ' ');
 }
 
-void DesenhaDave(Dave *dave, int posX, int posY)
-{
+/* DESENHA O DAVE EM UMA POSIÇÃO ESPECÍFICA */
+
+void DesenhaDave(Dave *dave, int posX, int posY) {
+
     dave->posX = posX;
     dave->posY = posY;
 
     textbackground(WHITE);
     textcolor(BLACK);
 
-    putchxy(posX, posY - 1, 1); //ROSTO
+    putchxy(posX, posY - 1, 1);
 
     textbackground(LIGHTBLUE);
-    putchxy(posX, posY, 19); //PERNAS
+    putchxy(posX, posY, 19);
 }
 
 /* APAGA A POSIÇÃO ANTIGA DE DAVE E DESENHA NA POSIÇÃO MAIS RECENTE */
+
 void atualiza_posicao(Dave *dave, int posX, int posY) {
+
     ApagaDave(dave);
     DesenhaDave(dave, posX, posY);
 }
 
 /* RETORNA SE O DAVE PODE SE MOVIMENTAR PARA UMA DETERMINADA POSIÇÃO */
+
 int pode_movimentar(int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
+
     if(TemBloco(posX, posY, mapa) || TemBloco(posX, posY - 1, mapa)) {
+
         return 0;
     }
 
@@ -87,13 +100,19 @@ int pode_movimentar(int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
 }
 
 /* ATUALIZA A POSIÇÃO DE DAVE SE FOR POSSÍVEL */
+
 int atualiza_se_puder(Dave *dave, int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
+
     if(pode_movimentar(posX, posY, mapa)) {
+
         atualiza_posicao(dave, posX, posY);
         return 1;
+
     } else if((posY == dave->posY - 1 || posY == dave->posY + 1) &&
                 (posX == dave->posX - 1 || posX == dave->posX + 1)) { /* CASO ESPECIAL: MOVIMENTO EM DIAGONAL */
+
         if(pode_movimentar(dave->posX, posY, mapa)) {
+
             atualiza_posicao(dave, dave->posX, posY);
             return 1;
         }
@@ -103,6 +122,7 @@ int atualiza_se_puder(Dave *dave, int posX, int posY, char mapa[ALTMAX][LARGMAX]
 }
 
 /* INDICA SE O DAVE ESTÁ SENDO SUSTENTADO POR UM BLOCO */
+
 int no_ar(int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
 
     if(TemBloco(posX, posY + 1, mapa)) {
@@ -113,6 +133,7 @@ int no_ar(int posX, int posY, char mapa[ALTMAX][LARGMAX]) {
 }
 
 /* MOVIMENTA O DAVE, QUANDO POSSÍVEL, DE ACORDO COM A ENTRADA DO USUÁRIO */
+
 void movimenta_dave(int entrada, Dave *dave, char mapa[ALTMAX][LARGMAX]) {
 
     if (dave->jetpack == 1) { /* CASO DAVE ESTEJA COM JETPACK */

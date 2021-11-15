@@ -16,11 +16,13 @@
 #include <stdio.h>
 
 #include "conio2.h"
-
 #include "Constantes.h"
 #include "Placar.h"
 
+/* DESENHA O PLACAR NO CONSOLE */
+
 void desenha_placar(placar_t *placar) {
+
     textbackground(BLACK);
     textcolor(LIGHTGREEN);
 
@@ -42,17 +44,13 @@ void desenha_placar(placar_t *placar) {
     sprintf(vidas, "%d", placar->vidas);
     cputsxy(((int) (LARGMAX * 2 - 18)) + 2, 4, vidas);
 
-    /*       //MOSTRAR SE O DAVE PEGOU A JETPACK E O TROFEU
-
-    cputsxy((LARGMAX * 2 - 10), 1, "JETPACK:");
-    cputsxy((LARGMAX * 2 - 9), 2, "TROFEU:");
-
-    */
-
     placar->atualizado = 1;
 }
 
+/* ATUALIZA O PLACAR */
+
 void atualiza_placar(placar_t *placar) {
+
     textbackground(BLACK);
     textcolor(LIGHTGREEN);
 
